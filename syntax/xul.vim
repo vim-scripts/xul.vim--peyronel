@@ -6,7 +6,7 @@
 " Pour vous aider il suffit de faire un <CTRL-X><CTRL-U> 
 " Les balises sont prises en comptes et les attributs
 "
-" Maintainer:	jean-jacques PEYRONEL <jjp@libertysurf.fr>
+" Maintainer:	jean-jacques PEYRONEL <jjp1@libertysurf.fr>
 " Last Change:	2006 Mai 24
 
 
@@ -162,17 +162,20 @@ fun! CompleteXUL(findstart, base)
 		for m in keys(b:XULdict)
 			if m =~ '^' . balise . '$' "On est dans le cas d'un renvoi des paramètres
 				let res = []
+				let attribut_fin = matchstr(a:base, '\a*$')
 				for a in items(extend(copy(b:XULdict[m]), copy(b:XULelem)))
-					call add(res, a:base . ' ' . a[0] . '="' . a[1] . '"')
+					if a[0] =~ '^' . attribut_fin
+						call add(res,  a:base . strpart(a[0], len(attribut_fin)) . '="' . a[1] . '"')
+					end
 				endfor
-				return res
+				return sort(res)
 			else
 				if m =~ '^' . a:base
 					call add(res, m)
 				endif
 			endif
 		endfor
-		return res
+		return sort(res)
 	endif
 endfun
 
