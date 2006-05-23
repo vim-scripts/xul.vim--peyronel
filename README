@@ -1,0 +1,5 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1556
+
+Support autocompletion (CTRL-XCTRL-U): balises and attributes with XUL files.
+It's easy to extend to others XML files.
+
